@@ -172,10 +172,10 @@ config t
 ip routing
 ip dhcp pool CAMERA6
 host 10.22.50.6 255.255.255.0
-client-identifier 001a.xxxx.yyyy
+client-identifier  001a.0704.7f6a
 ip dhcp pool CAMERA8
 host 10.22.50.8 255.255.255.0
-client-identifier 001a.xxxx.yyyy 
+client-identifier 001a.0709.c238  
 end
 show ip dhcp binding
 
@@ -250,12 +250,12 @@ ephone-dn 8
 ephone-dn 10
  number 2298
 Ephone 1
-  Mac-address cafe.face.baba
+  Mac-address  ccd8.c1fb.0817
   type 8945
   button 1:8 2:7 3:6 4:5
   restart
 Ephone 2
-  Mac-address fafa.caca.baba
+  Mac-address  ccd8.c1fb.09ff
   type 8945
   button 1:4 2:3 3:2 4:1
   restart  
@@ -277,10 +277,17 @@ end
 
 !!@@allow incoming calls
 configure terminal
-voice service voip
-ip address trusted list
-ipv4 0.0.0.0 0.0.0.0
-exit
+ephone 1
+   video
+   voice service voip
+   h323
+   call start slow
+ephone 2
+   video
+   voice service voip
+   h323
+   call start slow
+end
 
 !OUTGOING CALL FROM CUCM TO OTHER CUCM.
 configure terminal
@@ -288,17 +295,17 @@ configure terminal
  destination-pattern 11..
  session target ipv4:10.11.100.8
  codec g711ULAW
-  !dial-peer voice 12 Voip
-  !destination-pattern 12..
-  !session target ipv4:10.12.100.8
-  !codec g711ULAW
+  dial-peer voice 12 Voip
+  destination-pattern 12..
+  session target ipv4:10.12.100.8
+  codec g711ULAW
 dial-peer voice 21 Voip
  destination-pattern 21..
  session target ipv4:10.21.100.8
  codec g711ULAW
-dial-peer voice 22 Voip
- destination-pattern 22..
- session target ipv4:10.22.100.8
+!dial-peer voice 22 Voip
+ !destination-pattern 22..
+ !session target ipv4:10.22.100.8
  codec g711ULAW
 dial-peer voice 31 Voip
  destination-pattern 31..
@@ -646,7 +653,7 @@ conf t
    name 2272
 !
   voice register pool 1
-    id mac ____.____.____
+    id mac  3e14.6612.5cd6
     number 1 dn 1
     dtmf-relay sip-notify
     username 2271 password 2271
