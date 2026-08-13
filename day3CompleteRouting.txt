@@ -99,6 +99,7 @@ int e1/0
    switchport access vlan 100
    do show vlan brief
 !
+end
 D2:
 CONFIG T
 ip dhcp excluded-add 10.2.1.1 10.2.1.199
@@ -108,12 +109,14 @@ ip dhcp pool vlan10
   network 10.2.1.0 255.255.255.0
   default-router 10.2.1.254
 !
+end
 !#ipasok D2 port e1/0 sa vlan 20
 config t
 int e1/0
    switchport mode access
    switchport access vlan 20
    do show vlan brief
+end
 A1: lipat vlan from v1 to v10
  config t
 int e0/0
@@ -124,16 +127,20 @@ config t
 ip route 0.0.0.0 0.0.0.0 192.168.1.129 1
 ip route 0.0.0.0 0.0.0.0 192.168.1.130 2
 do sh ip route static
+end
+
 A2:
 config t
 int e1/0
  switchport mode access
  switchport access vlan 10
+end
 !A2: creating primary and backup default route:
 config t
 ip route 0.0.0.0 0.0.0.0 192.168.1.130 1
 ip route 0.0.0.0 0.0.0.0 192.168.1.129  2
 do sh ip route static
+end
 p1:
 config t
 int e0/0
@@ -156,6 +163,7 @@ config t
 ip route  192.168.1.128 255.255.255.224 10.2.1.2
 ip route  192.168.1.129 255.255.255.255 10.2.1.1
 do sh ip route static
+
 Pano mag static Route sa PC:
 cmd
 route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
